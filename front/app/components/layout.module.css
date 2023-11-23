@@ -1,0 +1,36 @@
+.container {
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
+}
+
+.optionsContainer {
+  max-width: 30%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #959595;
+  align-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-size: 20px;
+  padding-right: 10px;
+}
+
+.label input {
+  margin-left: 5px;
+}
+
+.optionsRow {
+  padding-left: 10px;
+  box-shadow: 1px 1px 1px 1px black;
+}
