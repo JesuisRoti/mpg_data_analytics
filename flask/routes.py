@@ -1,4 +1,3 @@
-import pandas as pd
 from flask import Blueprint, request, abort, g
 
 from general_functions import (
@@ -16,6 +15,7 @@ main_routes = Blueprint("main", __name__)
 @main_routes.route("/")
 def main():
     return "True"
+
 
 @main_routes.route("/top_forward")
 def r_top_forward():

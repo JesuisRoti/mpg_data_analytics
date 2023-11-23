@@ -114,3 +114,45 @@ def top_midfielder(top_players: pd.DataFrame):
 
 def top_goal_keeper(top_players: pd.DataFrame):
     return top_players[top_players["position"] == "G"]
+
+
+def add_extra_info(player_dataframe: pd.DataFrame):
+    """
+    This function will request mpg for more data about specific players, since it is one request per player this function
+    should be used only for small dataframe.
+    :param player_dataframe:
+    :return: big json object containing all data for all the players in the dataframe
+    """
+    players_id = player_dataframe["pid"]
+    url = "https://api.mpg.football/api/data/championship-player-stats/"
+    players_full_stats_obj = {}
+
+    for player in players_id.values:
+        try:
+            res = requests.get(f"{url}{player}/2023", timeout=300)
+            data = res.json()
+        except:
+            print("Error during get request")
+        else:
+            players_full_stats_obj[player] = data
+    return players_full_stats_obj
+
+
+def clean_extra_data(fs_players: dict, original_dataframe: pd.DataFrame):
+    """
+    Function to clean and select valuables json attributes for players in the extra data received.
+    :param fs_players: full stats players dictionary
+    :param original_dataframe: dataframe containing basic information about top players
+    :return: dataframe
+    """
+    df_fs_players = pd.DataFrame(fs_players).transpose()
+    df_fs_players = df_fs_players["championships"]
+    mercato_pick_rates = []
+    for i in df_fs_players:
+        # retrieve the main key
+        key = list(i.keys())[0]
+        main_stats = i[key]
+        mercato_pick_rates.append(main_stats["mercatoPickRate"])
+
+    original_dataframe["mercatoPR"] = mercato_pick_rates
+    return original_dataframe
