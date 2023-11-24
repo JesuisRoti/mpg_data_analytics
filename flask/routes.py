@@ -1,4 +1,5 @@
 from flask import Blueprint, request, abort, g
+import pandas as pd
 
 from general_functions import (
     base_request,
@@ -78,4 +79,22 @@ def r_top_midfielder():
             int(top_number), args_dict.get("ranking_criteria", "averagePoints")
         )
         result = top_midfielder(clean_df)
+        return prettify_json(result)
+
+
+@main_routes.route("/top_players")
+def r_top_players():
+    args_dict = g.get("args_dict", {})
+
+    try:
+        top_number = int(request.args.get("top_number"))
+    except:
+        abort(403, "top_number arg must be defined in the request an be an integer")
+    else:
+        clean_df = base_request(
+            int(top_number), args_dict.get("ranking_criteria", "averagePoints")
+        )
+        position_wanted = []
+
+        result = pd.concat([top_forward(clean_df), top_midfielder(clean_df)])
         return prettify_json(result)
