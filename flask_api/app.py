@@ -8,7 +8,7 @@ from flask_api.routes import main_routes
 from flask_celeryext import FlaskCeleryExt
 from datetime import timedelta
 from general_functions import add_extra_info, clean_extra_data
-
+from celery.schedules import crontab
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +23,7 @@ app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 app.config['beat_schedule'] = {
     'mercato_pick_rates': {
         'task': 'flask_api.app.mercato_pick_rates',
-        'schedule': timedelta(seconds=60)
+        'schedule': crontab(hour="0", minute="0"),
     }
 }
 
