@@ -5,6 +5,7 @@ import json
 import requests
 import pandas as pd
 import numpy as np
+import sqlite3
 from flask import abort
 
 from unidecode import unidecode
@@ -110,9 +111,9 @@ def top_pos(dataf: pd.DataFrame, numb: int, ranking_criteria: str = "averagePoin
 		.apply(lambda group: group.nlargest(numb, [ranking_criteria, "averagePoints"]))
 	)
 	pids = top_points_by_pos["pid"].values
-	from flask_api.app import get_db
+	con = sqlite3.connect('flask_api/players_data/players_database.db')
 
-	cur = get_db().cursor()
+	cur = con.cursor()
 
 	mercato_pr_list = []
 	for pid in pids:
@@ -122,6 +123,7 @@ def top_pos(dataf: pd.DataFrame, numb: int, ranking_criteria: str = "averagePoin
 			mercato_pr_list.append(result[0])
 		else:
 			mercato_pr_list.append(0)
+	con.close()
 	top_points_by_pos["mercatoPR"] = mercato_pr_list
 	return top_points_by_pos
 
@@ -206,5 +208,8 @@ def clean_extra_data(fs_players: dict, original_dataframe: pd.DataFrame):
 		main_stats = i[key]
 		mercato_pick_rates.append(main_stats.get("mercatoPickRate", 0))
 
-	original_dataframe["mercatoPR"] = mercato_pick_rates
+	try:
+		original_dataframe["mercatoPR"] = mercato_pick_rates
+	except Exception as e:
+		print(e)
 	return original_dataframe

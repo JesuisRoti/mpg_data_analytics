@@ -1,7 +1,7 @@
 import pandas as pd
 from flask import Blueprint, abort, g
 
-from general_functions import (
+from utils.general_functions import (
 	base_request,
 	prettify_json,
 	top_forward,

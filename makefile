@@ -3,4 +3,10 @@ celery_worker:
 celery_beat:
 	celery -A flask_api.app.celery beat --loglevel=info
 create_database:
-	python players_data/create_database.py
+	python flask_api/players_data/create_database.py
+flask_app:
+	python flask_api/app.py
+run_front:
+	cd front && npm run dev
+basic_script:
+	python mpg_main.py
