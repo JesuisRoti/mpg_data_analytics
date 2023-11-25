@@ -1,0 +1,58 @@
+.container {
+    padding: 0 1rem;
+    margin: 1rem auto 6rem;
+}
+
+.optionsContainer {
+    margin: auto auto 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px 10px;
+    border-radius: 5px;
+    background-color: #959595;
+    align-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 30px;
+}
+
+.label {
+    margin-bottom: 5px;
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.label input {
+    margin-left: 5px;
+}
+
+.optionsRow {
+    padding-left: 10px;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.legendContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.legendItem {
+    font-size: 15px;
+}
+
+.selectTitle{
+    font-size: 15px;
+    margin: 0 auto 5px;
+    justify-content: center;
+    display: flex;
+}
+
+.selectRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1rem auto 1rem;
+    width: 100%;
+}
