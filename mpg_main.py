@@ -3,8 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import requests
 
-from sqlalchemy import create_engine
-
 from general_functions import (
 	cleaning,
 	top_pos,
@@ -28,6 +26,20 @@ def plot_players(
 		y_leg: str,
 		title: str,
 ):
+	"""
+	Plot the players in a scatter plot
+
+	:param colors: list of colors to use for each player
+	:param player_dataframe: dataframe containing information about top players
+	:param x_col: column to use for the x-axis
+	:param y_col: column to use for the y-axis
+	:param x_step: step for the x-axis
+	:param y_step: step for the y-axis
+	:param x_leg: legend for the x-axis
+	:param y_leg: legend for the y-axis
+	:param title: title of the plot
+	:return:
+	"""
 	fig, ax = plt.subplots()
 
 	plt.yticks(
@@ -64,7 +76,6 @@ if __name__ == "__main__":
 	pd.set_option("float_format", "{:.2f}".format)
 
 	df = pd.DataFrame(player for player in jdata["poolPlayers"])
-	engine = create_engine("postgresql://postgres:root@localhost:5432/test_mpg")
 	clean_df = cleaning(df)
 	top_numb = 10
 	top_pos = top_pos(clean_df, top_numb)
@@ -130,5 +141,3 @@ for i in granularity:
 		y_leg="Rating",
 		title=i["title"],
 	)
-
-# df.to_sql('table_name', engine, if_exists='append')
