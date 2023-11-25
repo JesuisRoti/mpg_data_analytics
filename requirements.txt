@@ -11,3 +11,4 @@ flask_cors
 celery
 importlib-metadata==4.13.0
 flask-celeryext
+PyQt5

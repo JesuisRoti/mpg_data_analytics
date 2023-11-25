@@ -1,14 +1,17 @@
 import pandas as pd
 import requests
 import sqlite3
+import sys
+import os
+sys.path.append(os.getcwd())
 
 from flask import Flask, request, g
 from flask_cors import CORS
-from flask_api.routes import main_routes
 from flask_celeryext import FlaskCeleryExt
-from datetime import timedelta
-from general_functions import add_extra_info, clean_extra_data
+from utils.general_functions import add_extra_info, clean_extra_data
 from celery.schedules import crontab
+from routes import main_routes
+
 
 app = Flask(__name__)
 CORS(app)
@@ -42,7 +45,7 @@ def get_db():
 	"""
 	db = getattr(g, '_database', None)
 	if db is None:
-		db = g._database = sqlite3.connect('../flask_api/players_data/players_database.db')
+		db = g._database = sqlite3.connect('flask_api/players_data/players_database.db')
 	return db
 
 @app.teardown_appcontext
@@ -92,6 +95,5 @@ def mercato_pick_rates():
 	con.commit()
 	con.close()
 
-
 if __name__ == "__main__":
-	app.run(host="0.0.0.0", debug=True, port=flask_port)
+	app.run(host="0.0.0.0", debug=False, port=flask_port)

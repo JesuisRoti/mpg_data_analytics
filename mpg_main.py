@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import requests
 
-from general_functions import (
+from utils.general_functions import (
 	cleaning,
 	top_pos,
 	top_forward,
