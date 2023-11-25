@@ -50,6 +50,7 @@ function MyChart() {
 		averageRating: false,
 		quotation: false,
 		participation: false,
+		mercatoPR: false,
   	});
   
   	const options = {
@@ -128,7 +129,6 @@ function MyChart() {
 				pointRadius: 5,
 			});
 		}
-		console.log(datasets);
 		setDatasetData(datasets);
 		return {
 			datasets: datasets,
@@ -169,7 +169,6 @@ function MyChart() {
 		let positionsParams = "";
 		Object.keys(position).forEach((key) => {
 			if (position[key]) {
-				console.log(key)
         		// params to string send every position in the url as position=X&position=Y so concatenate
         		// a string to receive the data correctly in the backend
         		if (positionsParams.length > 0) {
@@ -204,6 +203,7 @@ function MyChart() {
 							options={positionOptions}
 							isMulti={true}
 							onChange={(e) => modifyPosition(e)}
+							defaultValue={positionOptions[0]}
 							className="my-react-select"
 						/>
 					</div>
@@ -213,6 +213,7 @@ function MyChart() {
 							options={rankingColumnOptions}
 							isMulti={false}
 							onChange={(e) => modifyRankingColumn(e)}
+							defaultValue={rankingColumnOptions[0]}
 							className="my-react-select"
 						/>
 					</div>
@@ -222,6 +223,7 @@ function MyChart() {
 							options={colXOptions}
 							isMulti={false}
 							onChange={(e) => setCol_x(e.label)}
+							defaultValue={colXOptions[0]}
 							className="my-react-select"
 						/>
 					</div>
@@ -231,6 +233,7 @@ function MyChart() {
 							options={colXOptions}
 							isMulti={false}
 							onChange={(e) => setCol_y(e.label)}
+							defaultValue={colXOptions[2]}
 							className="my-react-select"
 						/>
 					</div>
