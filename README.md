@@ -117,3 +117,7 @@ Flask app :
 ```shell
 make flask_app
 ```
+Run the front end :
+```shell
+make run_front_dev
+```
