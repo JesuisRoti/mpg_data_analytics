@@ -95,6 +95,9 @@ cd front
 npm install
 ```
 
+For the front end to run correctly, you need to create a .env.local file (in the front dir) containing the key "NEXT_PUBLIC_API_URL"
+
+
 Then initialize the database :
 ```shell
 make create_database
