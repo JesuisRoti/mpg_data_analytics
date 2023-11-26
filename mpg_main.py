@@ -85,60 +85,60 @@ if __name__ == "__main__":
 	best_middle = top_midfielder(top_pos)
 	best_goalk = top_goal_keeper(top_pos)
 
-extra_stats_bf = add_extra_info(best_forward)
-best_forward = clean_extra_data(extra_stats_bf, best_forward)
+	extra_stats_bf = add_extra_info(best_forward)
+	best_forward = clean_extra_data(extra_stats_bf, best_forward)
 
-colors_list = np.array(
-	[
-		"black",
-		"red",
-		"blue",
-		"green",
-		"skyblue",
-		"lime",
-		"pink",
-		"orange",
-		"maroon",
-		"gray",
-	]
-)
-titles = ["Goal Keeper", "Mid Fielder", "Backward", "Forward"]
-granularity = [
-	{
-		"title": "Goal Keeper",
-		"dataframe": best_goalk,
-		"y_step": 0.1,
-		"x_step": 2,
-	},
-	{
-		"title": "Mid Fielder",
-		"dataframe": best_middle,
-		"y_step": 0.1,
-		"x_step": 5,
-	},
-	{
-		"title": "Backward",
-		"dataframe": best_back,
-		"y_step": 0.1,
-		"x_step": 5,
-	},
-	{
-		"title": "Forward",
-		"dataframe": best_forward,
-		"y_step": 0.1,
-		"x_step": 5,
-	},
-]
-
-for i in granularity:
-	plot_players(
-		colors=colors_list,
-		player_dataframe=i["dataframe"],
-		x_col="quotation",
-		y_col="averageRating",
-		x_step=i["x_step"],
-		y_step=i["y_step"],
-		x_leg="Quotation",
-		y_leg="Rating",
-		title=i["title"],
+	colors_list = np.array(
+		[
+			"black",
+			"red",
+			"blue",
+			"green",
+			"skyblue",
+			"lime",
+			"pink",
+			"orange",
+			"maroon",
+			"gray",
+		]
 	)
+	titles = ["Goal Keeper", "Mid Fielder", "Backward", "Forward"]
+	granularity = [
+		{
+			"title": "Goal Keeper",
+			"dataframe": best_goalk,
+			"y_step": 0.1,
+			"x_step": 2,
+		},
+		{
+			"title": "Mid Fielder",
+			"dataframe": best_middle,
+			"y_step": 0.1,
+			"x_step": 5,
+		},
+		{
+			"title": "Backward",
+			"dataframe": best_back,
+			"y_step": 0.1,
+			"x_step": 5,
+		},
+		{
+			"title": "Forward",
+			"dataframe": best_forward,
+			"y_step": 0.1,
+			"x_step": 5,
+		},
+	]
+
+	for i in granularity:
+		plot_players(
+			colors=colors_list,
+			player_dataframe=i["dataframe"],
+			x_col="quotation",
+			y_col="averageRating",
+			x_step=i["x_step"],
+			y_step=i["y_step"],
+			x_leg="Quotation",
+			y_leg="Rating",
+			title=i["title"],
+		)
