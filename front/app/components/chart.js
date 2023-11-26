@@ -26,7 +26,7 @@ ChartJS.register(
 );
 
 function MyChart() {
-	const api = "http://localhost:5001/top_players";
+	const api = process.env.NEXT_PUBLIC_API_URL + "/top_players";
 	const [topNumber, setTopNumber] = useState(10);
 	const [datasetData, setDatasetData] = useState([]);
 	const [col_x, setCol_x] = useState("totalGoals");
