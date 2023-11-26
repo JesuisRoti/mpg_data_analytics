@@ -84,20 +84,24 @@ function MyChart() {
 		value: key,
 		label: key,
 	}));
-	
+	const topNumberOptions = [10, 15, 20].map((el) => ({
+		value: el,
+		label: el,
+	}));
+
 	const positionOptions = Object.keys(position).map((key) => ({
 		value: key,
 		label: key,
 	}));
-	
+
 	const rankingColumnOptions = Object.keys(rankingColumn).map((key) => ({
 		value: key,
 		label: key,
 	}));
-	
+
 	async function fetchData() {
 		try {
-			const response = await fetch(api + "?top_number=10");
+			const response = await fetch(api + "?top_number=" + topNumber.toString());
 			const data = await response.json();
 			setPlayersData(data);
 			setChartData(createChartData(data));
@@ -182,7 +186,7 @@ function MyChart() {
 		params.append("ranking_criteria", colCriteria);
 		params.append("top_number", topNumber.toString());
 		fetchDataWithParams(params);
-  	}, [position, colCriteria]);
+  	}, [position, colCriteria, topNumber]);
 
 	useEffect(() => {
 		setChartData(createChartData(playersData));
@@ -191,12 +195,22 @@ function MyChart() {
 	useEffect(() => {
 		fetchData();
   	}, []);
-	
+
 	return (
 		<div style={{ height: "600px" }}>
 			<div className={styles.optionsContainer}>
 				<h3 className={styles.title}>Options :</h3>
 				<div className={styles.selectRow}>
+					<div className="selectRowContainer">
+						<p className={styles.selectTitle}>Number of players</p>
+						<Select
+							options={topNumberOptions}
+							isMulti={false}
+							onChange={(e) => setTopNumber(e.label)}
+							defaultValue={topNumberOptions[0]}
+							className="my-react-select"
+						/>
+					</div>
 					<div className="selectRowContainer">
 						<p className={styles.selectTitle}>Position</p>
 						<Select
@@ -213,7 +227,7 @@ function MyChart() {
 							options={rankingColumnOptions}
 							isMulti={false}
 							onChange={(e) => modifyRankingColumn(e)}
-							defaultValue={rankingColumnOptions[0]}
+							defaultValue={rankingColumnOptions[1]}
 							className="my-react-select"
 						/>
 					</div>
