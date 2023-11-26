@@ -2,3 +2,4 @@
 front/node_modules
 celerybeat-schedule.*
 flask_api/players_data/players_database.db
+*.env*
