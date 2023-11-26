@@ -12,3 +12,4 @@ celery
 importlib-metadata==4.13.0
 flask-celeryext
 PyQt5
+redis
