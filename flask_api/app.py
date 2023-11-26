@@ -10,7 +10,7 @@ from flask_cors import CORS
 from flask_celeryext import FlaskCeleryExt
 from utils.general_functions import add_extra_info, clean_extra_data
 from celery.schedules import crontab
-from routes import main_routes
+from flask_api.routes import main_routes
 
 
 app = Flask(__name__)
