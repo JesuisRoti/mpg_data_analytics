@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - dev/test_git_actions
+      - master
 
 jobs:
   deploy:
@@ -19,6 +19,7 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script_stop: true
         script: |
           cd dev/mpg_data_analysis
           sudo systemctl stop front-mpg.service
