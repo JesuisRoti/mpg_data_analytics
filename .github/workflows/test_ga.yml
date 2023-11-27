@@ -21,4 +21,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd dev/mpg_data_analysis
-          echo "oui"
+          sudo systemctl stop front-mpg.service
+          sudo systemctl stop flask-mpg.service
+          git pull origin master
+          sudo systemctl start front-mpg.service
+          sudo systemctl start flask-mpg.service
