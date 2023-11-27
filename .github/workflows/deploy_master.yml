@@ -21,7 +21,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script_stop: true
         script: |
-          cd dev/mpg_data_analysis
+          cd ~/dev/mpg_data_analysis
           sudo systemctl stop front-mpg.service
           sudo systemctl stop flask-mpg.service
           git pull origin master
