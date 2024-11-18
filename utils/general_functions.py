@@ -2,6 +2,8 @@
 This file contains functions that are both used by flask_api app and the scripting app
 """
 import json
+import os.path
+
 import requests
 import pandas as pd
 import numpy as np
@@ -40,7 +42,7 @@ def cleaning(dirty_df: pd.DataFrame):
 
 	# Drop useless ones and NA ratings. Also converting as integer to avoid weird display in dataframe
 	df_stats = df_stats.drop(
-		["nextMatch", "quotationTrend", "averagePointsTrend"], axis=1
+		["quotationTrend", "averagePointsTrend"], axis=1
 	)
 	df_stats = df_stats.dropna(subset=["averageRating", "averagePoints"])
 	df_stats['averageRating'] = df_stats['averageRating'].round(2)
@@ -64,7 +66,7 @@ def base_request(top_number: int = 10, ranking_criteria: str = "averagePoints"):
 	:return: pd.DataFrame('averageRating' 'averagePoints' 'totalGoals' 'totalMatches', 'totalStartedMatches' 'totalPlayedMatches' 'playerFullName' 'position', 'pid' 'participation' 'quotation')
 	"""
 	base_url = (
-		"https://api.mpg.football/api/data/championship-players-pool/2?season=2023"
+		"https://api.mpg.football/api/data/championship-players-pool/2?season=2024"
 	)
 	res = requests.get(base_url, verify=False)
 	jdata = res.json()
@@ -111,7 +113,8 @@ def top_pos(dataf: pd.DataFrame, numb: int, ranking_criteria: str = "averagePoin
 		.apply(lambda group: group.nlargest(numb, [ranking_criteria, "averagePoints"]))
 	)
 	pids = top_points_by_pos["pid"].values
-	con = sqlite3.connect('flask_api/players_data/players_database.db')
+	db_path = os.path.abspath('players_data/players_database.db')
+	con = sqlite3.connect(db_path)
 
 	cur = con.cursor()
 
